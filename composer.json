@@ -10,6 +10,7 @@
         }
     ],
     "psr-4": {
+    	"Ax\\Neo\\": "app/Packages/ax/neo/src/",
         "App\\": "app/"
     },
     "require": {
