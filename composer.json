@@ -1,0 +1,29 @@
+{
+    "name": "ax/neo",
+    "description": "AX Neo package",
+    "type": "metapackage",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Dev Team",
+            "email": "devteam@alexis.id"
+        }
+    ],
+    "psr-4": {
+        "App\\": "app/"
+    },
+    "require": {
+        "laravel/socialite": "^3.0"
+    },
+    "extra": {
+	    "laravel": {
+	        "providers": [
+	            "Ax\\Neo\\AxNeoServiceProvider",
+	            "Ax\\Neo\\V1\\Auth\\HasherProvider"
+	        ],
+	        "aliases": {
+	            "Debugbar": "Barryvdh\\Debugbar\\Facade"
+	        }
+	    }
+	}
+}
