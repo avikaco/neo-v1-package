@@ -3,16 +3,16 @@
 ## Installation ##
 
 1. Tambahkan di `composer.json`
-```
+```json
 "repositories": [
     {
         "type": "git",
-        "url": "https://avikaco@bitbucket.org/alexisjakarta/neo-v.1-package.git"
+        "url": "https://github.com/avikaco/neo-v1-package.git"
     },
 ]
 ```
 2. Install via composer **ax/neo**, `composer require ax/neo`,
-3. Jika menggunakan multiple database setting, lihat bagian setting DB [dibagian bawah](#multi-db).
+3. Jika menggunakan multiple database setting, lihat bagian setting DB dibagian bawah.
 4. Cek app config di `config/app.php` bagian providers, comment baris ini `Illuminate\Hashing\HashServiceProvider::class`, 
 5. Masih di app config bagian providers, seharusnya ada `"Ax\\Neo\\AxNeoServiceProvider",` dan `"Ax\\Neo\\V1\\Auth\\HasherProvider",` . Jika belum ada silahkan ditambahkan manual.
 6. Buka terminal untuk melakukan test apakah package sudah terinstall dengan benar. Jalankan perintah `php artisan neo:check`
@@ -22,7 +22,7 @@
 
 Contoh nama koneksi untuk NEO adalah **neo**.
 1. Di file `config/database.php` dibagian `connections`, tambahkan:
-```
+```php
 'neo' => [
     'driver' => 'mysql',
     'host' => env('DB_NEO_HOST', '127.0.0.1'),
@@ -39,7 +39,7 @@ Contoh nama koneksi untuk NEO adalah **neo**.
 ],
 ```
 2. Di file `.env` tambahkan setting berikut:
-```
+```bash
 DB_NEO_CONFIG=neo
 DB_NEO_HOST=127.0.0.1
 DB_NEO_PORT=3306
