@@ -1,7 +1,6 @@
 {
     "name": "ax/neo",
     "description": "AX Neo package",
-    "type": "metapackage",
     "license": "GPL",
     "authors": [
         {
@@ -11,10 +10,23 @@
     ],
     "autoload": {
         "psr-4": {
-            "Ax\\Neo\\": "/ax/neo/src/"
+            "Ax\\Neo\\": "ax/neo/src/"
 		}
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ax\\Neo\\Tests\\": "tests/"
+        }
     },
     "require": {
         "laravel/socialite": "^3.0"
-    }
+    },
+    "extra": {
+	    "laravel": {
+	        "providers": [
+	            "Ax\\Neo\\AxNeoServiceProvider",
+	            "Ax\\Neo\\V1\\Auth\\HasherProvider"
+	        ]
+	    }
+	}
 }
