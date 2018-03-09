@@ -8,7 +8,7 @@
     {
         "type": "git",
         "url": "https://github.com/avikaco/neo-v1-package.git"
-    },
+    }
 ]
 ```
 2. Install via composer **ax/neo**, `composer require ax/neo`,
