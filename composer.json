@@ -11,18 +11,10 @@
     ],
     "autoload": {
         "psr-4": {
-            "Ax\\Neo\\": "src/"
+            "Ax\\Neo\\": "/ax/neo/src/"
 		}
     },
     "require": {
         "laravel/socialite": "^3.0"
-    },
-    "extra": {
-	    "laravel": {
-	        "providers": [
-	            "Ax\\Neo\\AxNeoServiceProvider",
-	            "Ax\\Neo\\V1\\Auth\\HasherProvider"
-	        ]
-	    }
-	}
+    }
 }
