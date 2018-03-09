@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Ax\\Neo\\": "ax/neo/src/"
+            "Ax\\Neo\\": "src/"
 		}
     },
     "autoload-dev": {
