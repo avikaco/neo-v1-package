@@ -1,6 +1,6 @@
 # NEO Package #
 
-## Step install ##
+## Installation ##
 
 1. Tambahkan di `composer.json`
 ```
@@ -9,7 +9,8 @@
         "type": "git",
         "url": "https://avikaco@bitbucket.org/alexisjakarta/neo-v.1-package.git"
     },
-]```
+]
+```
 2. Install via composer **ax/neo**, `composer require ax/neo`,
 3. Jika menggunakan multiple database setting, lihat bagian setting DB [dibagian bawah](#multi-db).
 4. Cek app config di `config/app.php` bagian providers, comment baris ini `Illuminate\Hashing\HashServiceProvider::class`, 
@@ -20,9 +21,8 @@
 ## Jika NEO dan App Berbeda Database ##
 
 Contoh nama koneksi untuk NEO adalah **neo**.
-
 1. Di file `config/database.php` dibagian `connections`, tambahkan:
-```php
+```
 'neo' => [
     'driver' => 'mysql',
     'host' => env('DB_NEO_HOST', '127.0.0.1'),
@@ -36,8 +36,8 @@ Contoh nama koneksi untuk NEO adalah **neo**.
     'prefix' => '',
     'strict' => true,
     'engine' => null,
-],```
-
+],
+```
 2. Di file `.env` tambahkan setting berikut:
 ```
 DB_NEO_CONFIG=neo
@@ -45,4 +45,5 @@ DB_NEO_HOST=127.0.0.1
 DB_NEO_PORT=3306
 DB_NEO_DATABASE=homestead
 DB_NEO_USERNAME=homestead
-DB_NEO_PASSWORD=secret```
+DB_NEO_PASSWORD=secret
+```
