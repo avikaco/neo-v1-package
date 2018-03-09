@@ -9,9 +9,10 @@
             "email": "devteam@alexis.id"
         }
     ],
-    "psr-4": {
-    	"Ax\\Neo\\": "src/",
-        "App\\": "app/"
+    "autoload": {
+        "psr-4": {
+            "Ax\\Neo\\": "src/"
+		}
     },
     "require": {
         "laravel/socialite": "^3.0"
@@ -21,10 +22,7 @@
 	        "providers": [
 	            "Ax\\Neo\\AxNeoServiceProvider",
 	            "Ax\\Neo\\V1\\Auth\\HasherProvider"
-	        ],
-	        "aliases": {
-	            "Debugbar": "Barryvdh\\Debugbar\\Facade"
-	        }
+	        ]
 	    }
 	}
 }
