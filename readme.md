@@ -1,5 +1,7 @@
 # NEO Package #
 
+Ini adalah package Laravel yang dibuat untuk mempermudah koneksi dengan NEO.
+
 ## Installation ##
 
 1. Tambahkan di `composer.json`
@@ -9,12 +11,16 @@
         "type": "git",
         "url": "https://github.com/avikaco/neo-v1-package.git"
     }
-]
+],
 ```
-2. Install via composer **ax/neo**, `composer require ax/neo`,
+2. Install via composer **ax/neo**, diterminal ketik `composer require ax/neo`,
 3. Jika menggunakan multiple database setting, lihat bagian setting DB dibagian bawah.
 4. Cek app config di `config/app.php` bagian providers, comment baris ini `Illuminate\Hashing\HashServiceProvider::class`, 
-5. Masih di app config bagian providers, seharusnya ada `"Ax\\Neo\\AxNeoServiceProvider",` dan `"Ax\\Neo\\V1\\Auth\\HasherProvider",` . Jika belum ada silahkan ditambahkan manual.
+5. Masih di app config bagian providers, seharusnya ada 2 baris dibawah ini, jika belum ada silahkan tambahkan manual.
+```
+Ax\Neo\AxNeoServiceProvider::class,
+Ax\Neo\V1\Auth\HasherProvider::class,
+```
 6. Buka terminal untuk melakukan test apakah package sudah terinstall dengan benar. Jalankan perintah `php artisan neo:check`
 
 
@@ -101,3 +107,8 @@ class TestController extends Controller
 }
 ```
   
+## Setting Google & Facebook Oauth
+
+### Google
+
+### Facebook
