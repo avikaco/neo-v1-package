@@ -1,5 +1,5 @@
 <?php
-namespace Ax\Neo\V1\Auth\Models;
+namespace Ax\Neo\V1\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
