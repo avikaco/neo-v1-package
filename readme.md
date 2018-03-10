@@ -47,3 +47,57 @@ DB_NEO_DATABASE=homestead
 DB_NEO_USERNAME=homestead
 DB_NEO_PASSWORD=secret
 ```
+
+## Menggunakan NEO Hash Password 
+
+Karena kita sudah meng-overwrite Hash di Laravel dengan NEO, maka cara meng-encrypt password sama seperti native Laravel.
+`\Hash::make('String Password');`
+
+
+## Menggunakan Neo Auth
+
+1. Import Auth Trait (`Ax\Neo\V1\Auth\AuthTrait`)
+2. Use trait in your controller
+
+Sample Code
+```php
+// use other ...
+use Ax\Neo\V1\Auth\AuthTrait;
+
+class TestController extends Controller
+{
+    use AuthTrait;
+
+    public function index(Request $request)
+    {
+        // login with biometrik/fingerprint
+        $this->loginWithFingerprint($fingerprint);
+        
+        // redirect to Facebook/Google oAuth
+        $this->loginWithOauth('facebook');
+        
+        // login with username & password
+        $this->loginWithUsernamePassword($username, $password, $rememberMe);
+        
+        // login with password only
+        $this->loginWithPassword($password, $rememberMe);
+        
+        // logout
+        $this->logout();
+        
+        // check is logged in (Laravel builtin)
+        if (Auth::check()) {
+            // get user (Laravel builtin)
+            $user = \Auth::user();
+            
+            // get user role
+            $role = \Auth::user()->role;
+            
+            // get permissions
+            $permissions = \Auth::user()->role->permissions;
+        }
+    
+    }
+}
+```
+  
