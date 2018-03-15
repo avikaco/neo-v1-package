@@ -15,10 +15,10 @@ class AxNeoServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // overwite auth model with NEO User model in file /config/auth.php
         Config::set('auth.providers.users.model', \Ax\Neo\V1\Models\User::class);
         
-        // usage: ``` return view('ax-neo::view_name', compact('variable'));```
+        // usage: return view('ax-neo::view_name', compact('variable'));
         $this->loadViewsFrom(__DIR__ . '/views', 'ax-neo');
         
         $this->publishes([
