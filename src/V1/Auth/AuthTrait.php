@@ -3,7 +3,7 @@ namespace Ax\Neo\V1\Auth;
 
 // use Socialite;
 use Illuminate\Support\Facades\Auth;
-use Ax\Neo\V1\Auth\Models\User;
+use Ax\Neo\V1\Models\User;
 
 trait AuthTrait {
 
