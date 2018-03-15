@@ -16,8 +16,6 @@ class BackofficeModule extends Model
         'type'
     ];
 
-    protected $connection = 'neo_v1';
-
     public $timestamps = false;
 
     protected $casts = [
