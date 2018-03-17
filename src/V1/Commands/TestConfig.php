@@ -42,7 +42,12 @@ class TestConfig extends Command
         
         $this->line('');
         $this->line('Test NEO Hash:');
-        if (\Hash::make(1234) === $hash1234) {
+        
+        // check is java installed
+        $javaVersion = exec('java -version');
+        if (preg_match('/java version/i', $javaVersion) === false) {
+            $this->error('[GAGAL] Java belum ter-install! Download Java di https://java.com/en/download/');
+        } elseif (\Hash::make(1234) === $hash1234) {
             $this->info('[OK] Hash password berhasil.');
         } else {
             $this->error('[GAGAL] Hash password gagal!');
@@ -52,17 +57,23 @@ class TestConfig extends Command
         }
         
         // cek database connection
-        $dbError = false;
         $this->line('');
         $this->line('Test database connection, using connection name: ' . $dbConnectionName);
         try {
             \DB::connection($dbConnectionName)->statement('SHOW TABLES');
+            
+            $this->info('[OK] Berhasil terhubung dengan database.');
+            $countUserHasPassword1234 = DB::table('user')->where([
+                'password' => $hash1234
+            ])->count();
+            if ($countUserHasPassword1234 > 0) {} else {
+                $this->error('[WARN] Cek lagi setting DB ke NEO!');
+            }
         } catch (\Exception $e) {
-            $this->error('[GAGAL] Konfigurasi database NEO salah! ' . $e->getMessage());
+            $this->error('[GAGAL] Konfigurasi terhubung dengan database NEO!');
+            $this->error($e->getMessage());
         }
-        if ($dbError === false) {
-            $this->info('[OK] Berhasil terhubung dengan NEO database.');
-        }
+        
         // TODO cek bisa login gak
         // TODO cek apakah mau login pakai social media? jika ya pastikan table user punya field email
         // cek aplication id dan secret key facebook & gmail.
