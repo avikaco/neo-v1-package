@@ -4,24 +4,11 @@ Ini adalah package Laravel yang dibuat untuk mempermudah koneksi dengan NEO.
 
 ## Installation ##
 
-1. Tambahkan di `composer.json`
-```json
-"repositories": [
-    {
-        "type": "git",
-        "url": "https://github.com/avikaco/neo-v1-package.git"
-    }
-],
-```
-2. Install via composer **ax/neo**, diterminal ketik `composer require ax/neo`,
-3. Jika menggunakan multiple database setting, lihat bagian setting DB dibagian bawah.
-4. Cek app config di `config/app.php` bagian providers, comment baris ini `Illuminate\Hashing\HashServiceProvider::class`, 
-5. Masih di app config bagian providers, seharusnya ada 2 baris dibawah ini, jika belum ada silahkan tambahkan manual.
-```
-Ax\Neo\AxNeoServiceProvider::class,
-Ax\Neo\V1\Auth\HasherProvider::class,
-```
-6. Buka terminal untuk melakukan test apakah package sudah terinstall dengan benar. Jalankan perintah `php artisan neo:check`
+1. Tambahkan custom repository pada composer, diterminal ketik `composer config repositories.ax git https://github.com/avikaco/neo-v1-package.git`
+2. Install via composer **ax/neo**, diterminal ketik `composer require ax/neo:master`
+3. Cek app config di `config/app.php` bagian providers, comment baris ini `// Illuminate\Hashing\HashServiceProvider::class`
+4. Jika menggunakan multiple database setting, lihat bagian [setting DB](#jika-neo-dan-app-berbeda-database) dibagian bawah.
+5. Buka terminal untuk melakukan test apakah package sudah terinstall dengan benar. Jalankan perintah `php artisan neo:check`
 
 
 ## Jika NEO dan App Berbeda Database ##
@@ -77,10 +64,15 @@ class TestController extends Controller
     public function index(Request $request)
     {
         // login with biometrik/fingerprint
+        $fingerprint = $request->get('fingerprint');
         $this->loginWithFingerprint($fingerprint);
         
         // redirect to Facebook/Google oAuth
         $this->loginWithOauth('facebook');
+        
+        $username = $request->get('username');
+        $password = $request->get('password');
+        $rememberMe = true;
         
         // login with username & password
         $this->loginWithUsernamePassword($username, $password, $rememberMe);
@@ -102,7 +94,6 @@ class TestController extends Controller
             // get permissions
             $permissions = \Auth::user()->role->permissions;
         }
-    
     }
 }
 ```
@@ -111,4 +102,22 @@ class TestController extends Controller
 
 ### Google
 
+1. Daftar ke [Google Console](https://console.developers.google.com) untuk mendapatkan API.
+2. Set **Authorized redirect URIs** to `http://yourdomain/yourpath/oauth/google-callback`, jangan lupa untuk mengganti `yourdomain` & `yourpath`.
+3. Tambahkan credential to `.env`
+
+```bash
+AX_OAUTH_GOOGLE_CLIENT_ID=your_client_id
+AX_OAUTH_GOOGLE_CLIENT_SECRET=your_client_secret
+```
+
 ### Facebook
+
+1. Daftar ke [Facebook Developer](https://developers.facebook.com/) untuk mendapatkan API.
+2. Set **Valid OAuth redirect URIs** to `http://yourdomain/yourpath/oauth/facebook-callback`, jangan lupa untuk mengganti `yourdomain` & `yourpath`.
+3. Tambahkan credential to `.env`
+
+```bash
+AX_OAUTH_FACEBOOK_APP_ID=your_app_id
+AX_OAUTH_FACEBOOK_APP_SECRET=your_app_secret
+```
