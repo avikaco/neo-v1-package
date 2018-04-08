@@ -18,6 +18,8 @@ class AxNeoServiceProvider extends ServiceProvider
         // overwite auth model with NEO User model in file /config/auth.php
         Config::set('auth.providers.users.model', \Ax\Neo\V1\Models\User::class);
         
+        $this->app['router']->aliasMiddleware('neo.auth.basic', \Ax\Neo\V1\Auth\Middleware::class);
+        
         // usage: return view('ax-neo::view_name', compact('variable'));
         $this->loadViewsFrom(__DIR__ . '/views', 'ax-neo');
         
