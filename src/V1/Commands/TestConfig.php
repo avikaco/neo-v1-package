@@ -2,6 +2,7 @@
 namespace Ax\Neo\V1\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\FacadesAuth;
 
 class TestConfig extends Command
 {
@@ -51,30 +52,39 @@ class TestConfig extends Command
             $this->info('[OK] Hash password berhasil.');
         } else {
             $this->error('[GAGAL] Hash password gagal!');
-            $this->line('Todo:');
-            $this->line('1. Comment baris "Illuminate\Hashing\HashServiceProvider::class" di file config/app.php bagian providers.');
-            $this->line('2. Tambahkan "Ax\\Neo\\V1\\Auth\\HasherProvider," dibawahnya.');
+            $this->line('Todo: Di file config/app.php bagian providers, comment baris dibawah ini');
+            $this->line('"Illuminate\Hashing\HashServiceProvider::class",');
         }
         
         // cek database connection
         $this->line('');
         $this->line('Test database connection, using connection name: ' . $dbConnectionName);
+        
         try {
             \DB::connection($dbConnectionName)->statement('SHOW TABLES');
             
             $this->info('[OK] Berhasil terhubung dengan database.');
-            $countUserHasPassword1234 = DB::table('user')->where([
+            $userHasPassword1234 = DB::table('user')->where([
                 'password' => $hash1234
-            ])->count();
-            if ($countUserHasPassword1234 > 0) {} else {
-                $this->error('[WARN] Cek lagi setting DB ke NEO!');
+            ])->first();
+            
+            if ($userHasPassword1234) {
+                Auth::login($user);
+                if (Auth::check()) {
+                    $this->info('[OK] Test login berhasil.');
+                    // logout kembali
+                    Auth::logout();
+                } else {
+                    $this->error('[GAGAL] Test login gagal!');
+                }
+            } else {
+                $this->warn('[WARN] sistem tidak berhasil mencari user dengan password 1234, cek lagi setting DB ke NEO!');
             }
         } catch (\Exception $e) {
             $this->error('[GAGAL] Konfigurasi terhubung dengan database NEO!');
             $this->error($e->getMessage());
         }
         
-        // TODO cek bisa login gak
         // TODO cek apakah mau login pakai social media? jika ya pastikan table user punya field email
         // cek aplication id dan secret key facebook & gmail.
         
