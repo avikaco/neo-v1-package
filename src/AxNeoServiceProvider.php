@@ -15,6 +15,8 @@ class AxNeoServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        require_once __DIR__ . 'helper-functions.php';
+        
         // overwite auth model with NEO User model in file /config/auth.php
         Config::set('auth.providers.users.model', \Ax\Neo\V1\Models\User::class);
         
