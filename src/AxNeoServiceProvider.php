@@ -15,10 +15,11 @@ class AxNeoServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        require_once __DIR__ . 'helper-functions.php';
+        require_once __DIR__ . '/helper-functions.php';
         
-        // overwite auth model with NEO User model in file /config/auth.php
+        // overwrite auth model with NEO User model in file /config/auth.php
         Config::set('auth.providers.users.model', \Ax\Neo\V1\Models\User::class);
+        $this->mergeConfigFrom(__DIR__ . '/config/neo.php', 'neo');
         
         $this->app['router']->aliasMiddleware('neo.auth.basic', \Ax\Neo\V1\Auth\Middleware::class);
         
@@ -29,9 +30,9 @@ class AxNeoServiceProvider extends ServiceProvider
             __DIR__ . '/views' => resource_path('views/vendor/ax/neo')
         ]);
         
-        // $this->publishes([
-        // __DIR__ . '/configs' => base_path('config')
-        // ], 'config');
+        $this->publishes([
+            __DIR__ . '/config' => base_path('config')
+        ], 'config');
         
         if ($this->app->runningInConsole()) {
             $this->commands([
