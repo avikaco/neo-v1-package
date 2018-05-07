@@ -2,7 +2,6 @@
 namespace Ax\Neo\V1\Auth;
 
 use Closure;
-use Hash;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
 class Middleware
@@ -37,6 +36,19 @@ class Middleware
             'active' => 1
         ];
         
-        return $this->auth->guard($guard)->basic('user_name', $extraConditions) ?: $next($request);
+        $allowNext = $this->auth->guard($guard)->basic('user_name', $extraConditions);
+        if ($allowNext === null && $this->auth->guard($guard)->id()) {
+            $allowedRoles = config('neo.auth.allowedRoles');
+            if (empty($allowedRoles) === false) {
+                // jika $allowedRoles kosong, maka semua user yang loginnya benar boleh akses
+                // tapi jika tidak kosong (set NEO_AUTH_ROLES di .env),
+                // maka hanya boleh di akses sesuai yang diset
+                if (in_array($this->auth->guard($guard)->user()->role_id, $allowedRoles) === false) {
+                    return abort(403, 'Anda tidak boleh mengakses aplikasi ini');
+                }
+            }
+        }
+        
+        return $allowNext ?: $next($request);
     }
 }

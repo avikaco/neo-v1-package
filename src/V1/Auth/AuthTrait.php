@@ -84,6 +84,7 @@ trait AuthTrait {
 
     private function _login($credential)
     {
+        $allowedRoles = config('neo.auth.allowedRoles');
         $credential['active'] = true;
         $rememberMe = isset($credential['rememberMe']) ? ! ! $credential['rememberMe'] : false;
         unset($credential['rememberMe']);
@@ -92,6 +93,15 @@ trait AuthTrait {
         $user = User::where($credential)->first();
         if (! $user) {
             throw new \Exception('Login anda tidak valid!');
+        }
+        
+        if (empty($allowedRoles) === false) {
+            // jika $allowedRoles kosong, maka semua user yang loginnya benar boleh akses
+            // tapi jika tidak kosong (set NEO_AUTH_ROLES di .env),
+            // maka hanya boleh di akses sesuai yang diset
+            if (in_array($user->role_id, $allowedRoles) === false) {
+                return abort(403, 'Anda tidak boleh mengakses aplikasi ini');
+            }
         }
         
         // authenticate user
