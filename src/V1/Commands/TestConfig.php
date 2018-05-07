@@ -2,7 +2,6 @@
 namespace Ax\Neo\V1\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\FacadesAuth;
 
 class TestConfig extends Command
 {
