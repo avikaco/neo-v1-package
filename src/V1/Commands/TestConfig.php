@@ -2,6 +2,7 @@
 namespace Ax\Neo\V1\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class TestConfig extends Command
 {
@@ -60,7 +61,7 @@ class TestConfig extends Command
         $this->line('Test database connection, using connection name: ' . $dbConnectionName);
         
         try {
-            \DB::connection($dbConnectionName)->statement('SHOW TABLES');
+            DB::connection($dbConnectionName)->statement('SHOW TABLES');
             
             $this->info('[OK] Berhasil terhubung dengan database.');
             $userHasPassword1234 = DB::table('user')->where([
