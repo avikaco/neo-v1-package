@@ -64,7 +64,7 @@ class TestConfig extends Command
             DB::connection($dbConnectionName)->statement('SHOW TABLES');
             
             $this->info('[OK] Berhasil terhubung dengan database.');
-            $userHasPassword1234 = DB::table('user')->where([
+            $userHasPassword1234 = DB::connection($dbConnectionName)->table('user')->where([
                 'password' => $hash1234
             ])->first();
             
