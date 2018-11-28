@@ -4,6 +4,7 @@ namespace Ax\Neo\V1\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Ax\Neo\V1\Models\User;
 
 class TestConfig extends Command
 {
@@ -65,7 +66,7 @@ class TestConfig extends Command
             DB::connection($dbConnectionName)->statement('SHOW TABLES');
             
             $this->info('[OK] Berhasil terhubung dengan database.');
-            $userHasPassword1234 = DB::connection($dbConnectionName)->table('user')->where([
+            $userHasPassword1234 = User::where([
                 'password' => $hash1234
             ])->first();
             
