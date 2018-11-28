@@ -3,6 +3,7 @@ namespace Ax\Neo\V1\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class TestConfig extends Command
 {
