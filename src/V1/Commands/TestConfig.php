@@ -72,7 +72,7 @@ class TestConfig extends Command
             
             if ($userHasPassword1234) {
                 Auth::login($userHasPassword1234);
-                if (Auth::check()) {
+                if (Auth::attempt(['user_name'=>$userHasPassword1234->user_name,'password'=>'1234'])) {
                     $this->info('[OK] Test login berhasil.');
                     // logout kembali
                     Auth::logout();
